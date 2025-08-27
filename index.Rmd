@@ -23,4 +23,4 @@ Welcome everyone. On this page, you will find the prompts for the R Tutorials th
 
 ## R Tutorials Prompts:
 ### [HomeWork 1](/BIOL6994-096/assignment1.html)
-### [HomeWork 2](C:/Users/USER/Downloads/BIOL6994_R/BIOL6994-096/assignment2.html)
+### [HomeWork 2](/BIOL6994-096/assignment2.html)

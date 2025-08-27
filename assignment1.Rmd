@@ -12,4 +12,8 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+### Español:  
+Bienvenidos a todxs. En esta página encontrarán los prompts para los R Tutorials que desarrollé durante la clase BIOL6994.
 
+### Inglés:  
+Welcome everyone. On this page, you will find the prompts for the R Tutorials that I worked on during BIOL 6994 class.
