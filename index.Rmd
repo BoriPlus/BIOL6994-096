@@ -22,5 +22,5 @@ Bienvenidos a todxs. En esta página encontrarán los prompts para los R Tutoria
 Welcome everyone. On this page, you will find the prompts for the R Tutorials that I worked on during BIOL 6994 class.
 
 ## R Tutorials Prompts:
-### [HomeWork 1](/BIOL6994-096/assignment1.html)
-### [HomeWork 2](/BIOL6994-096/assignment2.html)
+### [HomeWork 1](assignment1.html)
+### [HomeWork 2](assignment2.html)
