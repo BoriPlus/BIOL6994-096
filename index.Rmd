@@ -1,0 +1,26 @@
+---
+title: "Introduction to R for Biologists"
+subtitle: "BIOL 4994/BIOL 4991 undegrads <br> BIOL 6994/BIOL 6997 grads"
+author: "Alan J. Figueroa Ruiz"
+date: "`r format(Sys.time(), '%Y-%b-%d, %I:%M %p')`"
+output:
+  prettydoc::html_pretty:
+  theme: cayman
+  highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<img src="AlanFigueroa.jpg" width="550" height="550"/>
+
+### Español:  
+Bienvenidos a todxs. En esta página encontrarán los prompts para los R Tutorials que desarrollé durante la clase BIOL6994.
+
+### Inglés:  
+Welcome everyone. On this page, you will find the prompts for the R Tutorials that I worked on during BIOL 6994 class.
+
+## R Tutorials Prompts:
+### [HomeWork 1]
+### [HomeWork 2]
