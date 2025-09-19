@@ -1,0 +1,190 @@
+---
+title: "Introduction to R for Biologists"
+subtitle: "BIOL 4994/BIOL 4991 undegrads <br> BIOL 6994/BIOL 6997 grads"
+author: "Alan J. Figueroa Ruiz"
+date: "`r format(Sys.time(), '%Y-%b-%d, %I:%M %p')`"
+output:
+  prettydoc::html_pretty:
+  theme: cayman
+  highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Asignacion 3
+# Homework 3
+
+### Deadline / Fecha de entrega
+**Deadline:** Friday, Sept 19, 2025; 11:59 PM.  
+**Fecha de entrega:** Viernes, 19 de septiembre de 2025; 11:59 PM.
+
+### Instructions / Instrucciones generales
+
+- This assignment consists of 10 questions, each worth **10 points**.  
+(Esta tarea consta de 10 preguntas, cada una vale **10 puntos**.)
+
+- Write your answers in R code chunks whenever applicable.  
+(Escribe tus respuestas en chunks de R cuando sea aplicable.)
+
+- Make sure your code runs without errors. Include comments if necessary.  
+(Asegúrate de que tu código se ejecute sin errores. Incluye comentarios si es necesario.)
+
+- **Always display at least 6 rows of output for each question using head(..., 6) or more, so you can clearly see the results in your HTML file. (Siempre muestra al menos 6 filas de salida para cada pregunta usando head(..., 6) o más, para que puedas ver claramente los resultados en tu archivo HTML.)**
+
+- For questions about chunk options, experiment with the options and write down your observations.  
+(Para preguntas sobre opciones de chunks, experimenta con ellas y escribe tus observaciones.)
+
+- Submit the assignment on your personal webpages using the **HTML file** exported/knit from the `.Rmd`.  
+Do not copy output screenshots unless requested.  
+(Entrega la tarea en tus páginas personales usando el **archivo HTML** generado/kniteado desde el `.Rmd`.  
+No copies capturas de pantalla del resultado a menos que se indique.)
+
+<br><br><br>
+
+Install necessary packages (only run once if not installed).
+Instalar los paquetes necesarios (solo ejecutar una vez si no están instalados).
+```{r, message =F}
+# install.packages("gapminder")
+# install.packages("dplyr")
+library(dplyr)
+library(gapminder)
+data(gapminder)
+head(gapminder)
+```
+<br><br><br>
+
+**Q1.** What class is the gapminder dataset? 
+**Q1.** ¿Qué clase es el dataset gapminder?
+
+<br><br>
+
+```{r}
+class(gapminder)
+#La clase siento que es muy generalista por que solo
+#me indica que es una tabla predeterminada en forma de
+#data frame. Yo utilizaria str para asegurarme que tipo
+#y cuantos datos tiene la misma. Por tal razon, aunque
+#no lo pide el ejercicio, utilizare str para verificar ello.
+str(gapminder)
+```
+
+<br><br>
+
+**Q2.** Filter a section of gapminder with a life expectancy smaller than 29.
+**Q2.** Filtrar una sección de gapminder con esperanza de vida menor a 29.
+
+<br><br>
+
+```{r}
+gapminder %>% 
+  filter(lifeExp < 29)
+```
+
+<br><br>
+
+**Q3** Filter the dataset for the country **Rwanda** and for years greater than 1979.
+**Q3** Filtrar el dataset para el país **Ruanda** y para años mayores a 1979.
+
+<br><br>
+
+```{r}
+gapminder %>% 
+  filter(country == "Rwanda",
+         year > 1979
+         )
+```
+
+<br><br>
+
+**Q4**Create a new dataset from **gapminder** excluding the **column gdpPercap**.
+**Q4** Crear un nuevo dataset a partir de **gapminder** excluyendo la **columna gdpPercap**.
+
+<br><br>
+
+```{r}
+dsq4 <- gapminder %>% 
+  select(-gdpPercap)
+dsq4
+```
+
+<br><br>
+
+**Q5** Arrange the dataset in ascending order of lifeExp.**Q5** Ordenar el dataset en orden ascendente según lifeExp.
+
+<br><br>
+
+```{r}
+gapminder %>% 
+  arrange(lifeExp)
+```
+
+<br><br>
+
+**Q6** Arrange the dataset in descending order of lifeExp. **Q6** Ordenar el dataset en orden **descendente** según lifeExp.
+
+<br><br>
+
+```{r}
+gapminder %>% 
+  arrange(desc(lifeExp))
+```
+
+<br><br>
+
+**Q7** Create a new dataset with only the columns year and lifeExp. **Q7** Crear un nuevo dataset con solo las columnas year y lifeExp.
+
+<br><br> 
+
+```{r}
+dsq7 <- gapminder %>% 
+  select(year, lifeExp)
+dsq7
+```
+
+<br><br> 
+
+**Q8** Filter the dataset for the country Cambodia and show only the columns year and lifeExp. **Q8** Filtrar el dataset para el país Camboya y mostrar únicamente las columnas year y lifeExp.
+
+<br><br> 
+
+```{r}
+gapminder %>% 
+  filter(country == "Cambodia") %>% 
+  select(year, lifeExp)
+```
+
+<br><br> 
+
+**Q9.** Select only the countries in Africa. **Q9.** Seleccionar únicamente los países que están en África.
+
+<br><br>
+
+```{r}
+gapminder %>% 
+  filter(continent == "Africa") 
+```
+
+<br><br> 
+
+**Q10.** Create a new column called **lifeExp_months** that shows life expectancy in months.
+**Q10.** Crear una nueva columna llamada **lifeExp_months** que muestre la esperanza de vida en meses.
+
+<br><br>
+
+```{r}
+#No se porque lo redondea y no pone en decimales
+#segun aparece en aparece en el dataset original
+#de gapminder.
+#Igualmente el ejercicio no menciona si hay que dejar
+#el resto de las columnas o no. Asumiré que si para 
+#este caso.
+gapminder %>% 
+  mutate(lifeExp_months = lifeExp * 12) %>% 
+  select(lifeExp_months, everything())
+```
+
+<br><br> 
+
+
