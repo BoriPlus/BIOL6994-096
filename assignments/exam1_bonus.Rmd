@@ -1,0 +1,72 @@
+---
+title: "Introduction to R for Biologists"
+subtitle: "BIOL 4994/BIOL 4991 undegrads <br> BIOL 6994/BIOL 6997 grads"
+author: "Alan J. Figueroa Ruiz"
+date: "`r format(Sys.time(), '%Y-%b-%d, %I:%M %p')`"
+output:
+  prettydoc::html_pretty:
+  theme: cayman
+  highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<br>
+
+```{r message=F}
+library(readxl)
+library(dplyr)
+```
+
+<br>
+
+```{r message=F}
+cereal <- read_excel("cereal.xlsx")
+head(cereal)
+```
+
+<br>
+
+```{r}
+#1- Extract rows 1 to 10 from the cereal data frame. (Extraiga las filas 1 a 10 del marco de datos cereal.)
+cereal[1:10,]
+```
+
+<br>
+
+```{r}
+#2- Create a new data frame called Kelloggs that only contains rows where company == “K”. (Cree un nuevo marco de datos llamado Kelloggs que solo contenga las filas donde company == “K”.)
+Kelloggs <- cereal[cereal$company == "K",]
+Kelloggs
+```
+
+<br> 
+
+```{r}
+#3- From the cereal data, extract the names of all cereals that have more than 10 grams of sugar. (Del conjunto de datos cereal, extraiga los nombres de todos los cereales que tienen más de 10 gramos de azúcar.)
+cereal$name[cereal$sugars > 10]
+```
+
+<br>
+
+```{r}
+#4- Find the mean calories of all cereals in the dataset. (Encuentre las calorías promedio de todos los cereales en el conjunto de datos.)
+mean(cereal$calories)
+```
+
+<br>
+
+```{r}
+#5- Count how many cereals have fiber greater than or equal to 2 grams (Cuente cuántos cereales tienen fibra mayor o igual a 2 gramos.).
+# cereal$fiber >= 2 #Validar quienes son mayores o menores de 2 gramos
+# cereal$fiber[cereal$fiber >= 2] #Display aquellos que tienen fibra >= 2g
+length(cereal$fiber[cereal$fiber >= 2])
+```
+
+
+
+
+
+
