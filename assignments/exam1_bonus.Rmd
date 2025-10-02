@@ -65,6 +65,30 @@ mean(cereal$calories)
 length(cereal$fiber[cereal$fiber >= 2])
 ```
 
+```{r}
+library(readxl)
+library(dplyr)
+data <- read.csv("EquationCitations.csv")
+head(data)
+```
+
+```{r}
+# On average, how many equations per article are published in each journal? (Hint: use group_by() and summarise())
+data %>% 
+  group_by(journal) %>% 
+  summarise(name = mean(equations, na.rm = TRUE))
+```
+
+```{r}
+#For each journal, calculate the average proportion of theoretical citations relative to total citations. (Hint: create a new column with mutate(theo_ratio = theocites / cites), then group_by() and summarise())
+data %>%
+  #Crear una nueva columna con la proporcion
+  mutate(theo_ratio = theocites / cites) %>%
+  # Agrupar por journal
+  group_by(journal) %>%
+  # resumir la media de la proporcion 
+  summarise(avg_theo_ratio = mean(theo_ratio, na.rm = TRUE))
+```
 
 
 

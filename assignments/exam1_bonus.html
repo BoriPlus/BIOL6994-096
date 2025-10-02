@@ -144,7 +144,7 @@ Biologists</h1>
 <h3 class="subtitle project-tagline">BIOL 4994/BIOL 4991 undegrads <br>
 BIOL 6994/BIOL 6997 grads</h3>
 <h4 class="author project-author">Alan J. Figueroa Ruiz</h4>
-<h4 class="date project-date">2025-Sep-30, 04:40 PM</h4>
+<h4 class="date project-date">2025-Oct-02, 03:57 PM</h4>
 </section>
 
 
@@ -201,8 +201,7 @@ BIOL 6994/BIOL 6997 grads</h3>
 ## 11 Special K    K          1         117   0.4    224    22   0.8      4     7</code></pre>
 <p><br></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co">#3- From the cereal data, extract the names of all cereals that have more than 10 grams of sugar. (Del conjunto de datos cereal, extraiga los nombres de todos los cereales que tienen más de 10 gramos de azúcar.)</span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>lowsugar <span class="ot">&lt;-</span> cereal<span class="sc">$</span>name[cereal<span class="sc">$</span>sugars <span class="sc">&gt;</span> <span class="dv">10</span>]</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>lowsugar</span></code></pre></div>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>cereal<span class="sc">$</span>name[cereal<span class="sc">$</span>sugars <span class="sc">&gt;</span> <span class="dv">10</span>]</span></code></pre></div>
 <pre><code>##  [1] &quot;AppleJacks&quot;            &quot;Boo Berry&quot;             &quot;Cap&#39;n Crunch&quot;         
 ##  [4] &quot;Cinnamon Toast Crunch&quot; &quot;Cocoa Blasts&quot;          &quot;Cocoa Puffs&quot;          
 ##  [7] &quot;Cookie Crisp&quot;          &quot;Corn Pops&quot;             &quot;Froot Loops&quot;          
@@ -219,6 +218,48 @@ BIOL 6994/BIOL 6997 grads</h3>
 <span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co"># cereal$fiber[cereal$fiber &gt;= 2] #Display aquellos que tienen fibra &gt;= 2g</span></span>
 <span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="fu">length</span>(cereal<span class="sc">$</span>fiber[cereal<span class="sc">$</span>fiber <span class="sc">&gt;=</span> <span class="dv">2</span>])</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;EquationCitations.csv&quot;</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
+<pre><code>##   rownames journal            authors volume startpage pages equations
+## 1        1   AmNat     Prodohl et al.    151         7    13         0
+## 2        2   AmNat           Mauricio    151        20     9         2
+## 3        3   AmNat      Thrall et al.    151        29    17        15
+## 4        4   AmNat      Watson et al.    151        46    13         7
+## 5        5   AmNat     Klein &amp; Nelson    151        59     9         0
+## 6        6   AmNat Blackburn &amp; Gaston    151        68    16         2
+##   mainequations appequations cites selfcites othercites theocites nontheocites
+## 1             0            0    37         4         33         8           22
+## 2             2            0   178         5        173        19          150
+## 3            15            0    25        10         15         8            6
+## 4             7            0   127        11        116        17           98
+## 5             0            0    43         8         35         5           28
+## 6             2            0    91         7         84        21           61</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># On average, how many equations per article are published in each journal? (Hint: use group_by() and summarise())</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  <span class="fu">group_by</span>(journal) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">name =</span> <span class="fu">mean</span>(equations, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##   journal    name
+##   &lt;chr&gt;     &lt;dbl&gt;
+## 1 AmNat      9.04
+## 2 Evolution  2.91
+## 3 ProcB      2.69</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co">#For each journal, calculate the average proportion of theoretical citations relative to total citations. (Hint: create a new column with mutate(theo_ratio = theocites / cites), then group_by() and summarise())</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>  <span class="co">#Crear una nueva columna con la proporcion</span></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">theo_ratio =</span> theocites <span class="sc">/</span> cites) <span class="sc">%&gt;%</span></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>  <span class="co"># Agrupar por journal</span></span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>  <span class="fu">group_by</span>(journal) <span class="sc">%&gt;%</span></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a>  <span class="co"># resumir la media de la proporcion </span></span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_theo_ratio =</span> <span class="fu">mean</span>(theo_ratio, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##   journal   avg_theo_ratio
+##   &lt;chr&gt;              &lt;dbl&gt;
+## 1 AmNat              0.253
+## 2 Evolution          0.138
+## 3 ProcB              0.176</code></pre>
 </section>
 
 
