@@ -1,0 +1,17 @@
+---
+title: "Introduction to R for Biologists"
+subtitle: "BIOL 4994/BIOL 4991 undegrads <br> BIOL 6994/BIOL 6997 grads"
+author: "Alan J. Figueroa Ruiz"
+date: "`r format(Sys.time(), '%Y-%b-%d, %I:%M %p')`"
+output:
+  prettydoc::html_pretty:
+  theme: cayman
+  highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Examen 1
+# Exam 1
