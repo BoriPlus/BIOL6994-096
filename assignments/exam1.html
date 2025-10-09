@@ -30,6 +30,98 @@ document.addEventListener('DOMContentLoaded', function(e) {
 </script>
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+
+a.sourceLine {
+pointer-events: auto;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -52,7 +144,7 @@ Biologists</h1>
 <h3 class="subtitle project-tagline">BIOL 4994/BIOL 4991 undegrads <br>
 BIOL 6994/BIOL 6997 grads</h3>
 <h4 class="author project-author">Alan J. Figueroa Ruiz</h4>
-<h4 class="date project-date">2025-Oct-08, 05:27 PM</h4>
+<h4 class="date project-date">2025-Oct-09, 04:31 PM</h4>
 </section>
 
 
@@ -63,6 +155,171 @@ BIOL 6994/BIOL 6997 grads</h3>
 </div>
 <div id="exam-1" class="section level1">
 <h1>Exam 1</h1>
+<div id="loading-libraries" class="section level3">
+<h3>Loading libraries</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(aod)</span></code></pre></div>
+</div>
+<div id="asigning-datasets-as-objets" class="section level3">
+<h3>Asigning datasets as objets</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>msleep <span class="ot">&lt;-</span> <span class="fu">glimpse</span>(msleep)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>storms <span class="ot">&lt;-</span> storms</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>lizards <span class="ot">&lt;-</span> lizards</span></code></pre></div>
+</div>
+<div id="datasets-inspection" class="section level3">
+<h3>Datasets inspection</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">head</span>(msleep)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">head</span>(storms)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">head</span>(lizards)</span></code></pre></div>
+<p><br></p>
+</div>
+</div>
+<div id="ejercicio-1" class="section level1">
+<h1><strong>Ejercicio 1</strong></h1>
+<p>Use filter() to subset msleep to only animals who are awake for at
+least 12 hours of the day. Usa filter() para seleccionar del dataset
+msleep solo los animales que están despiertos al menos 12 horas al
+día.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">filter</span>(awake <span class="sc">&gt;=</span> <span class="dv">12</span>) <span class="co">#La columna awake es cuanto estan despiertos? Si es asi pues me voy con esta.</span></span></code></pre></div>
+<pre><code>## # A tibble: 52 × 11
+##    name   genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
+##    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
+##  1 Cow    Bos   herbi Arti… domesticated         4         0.7       0.667  20  
+##  2 North… Call… carni Carn… vu                   8.7       1.4       0.383  15.3
+##  3 Vespe… Calo… &lt;NA&gt;  Rode… &lt;NA&gt;                 7        NA        NA      17  
+##  4 Dog    Canis carni Carn… domesticated        10.1       2.9       0.333  13.9
+##  5 Roe d… Capr… herbi Arti… lc                   3        NA        NA      21  
+##  6 Goat   Capri herbi Arti… lc                   5.3       0.6      NA      18.7
+##  7 Guine… Cavis herbi Rode… domesticated         9.4       0.8       0.217  14.6
+##  8 Grivet Cerc… omni  Prim… lc                  10         0.7      NA      14  
+##  9 Star-… Cond… omni  Sori… lc                  10.3       2.2      NA      13.7
+## 10 Afric… Cric… omni  Rode… &lt;NA&gt;                 8.3       2        NA      15.7
+## # ℹ 42 more rows
+## # ℹ 2 more variables: brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;</code></pre>
+<p><br></p>
+</div>
+<div id="ejercicio-2" class="section level1">
+<h1><strong>Ejercicio 2</strong></h1>
+<p>Use mutate() to create a new column called percent_day_awake that
+gives the percentage of the day that each species spends awake. Use
+select() with everything() at the end to verify your calculation. Usa
+mutate() para crear una nueva columna llamada percent_day_awake que
+muestre el porcentaje del día que cada especie permanece despierta. Usa
+select() con everything() al final para comprobar que tus cálculos son
+correctos.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent_day_awake =</span> (awake <span class="sc">/</span> <span class="dv">24</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">select</span>(percent_day_awake, awake, <span class="fu">everything</span>()) <span class="co">#La columna se quiere al principio para comprobar?</span></span></code></pre></div>
+<pre><code>## # A tibble: 83 × 12
+##    percent_day_awake awake name       genus vore  order conservation sleep_total
+##                &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;
+##  1              49.6  11.9 Cheetah    Acin… carni Carn… lc                  12.1
+##  2              29.2   7   Owl monkey Aotus omni  Prim… &lt;NA&gt;                17  
+##  3              40     9.6 Mountain … Aplo… herbi Rode… nt                  14.4
+##  4              37.9   9.1 Greater s… Blar… omni  Sori… lc                  14.9
+##  5              83.3  20   Cow        Bos   herbi Arti… domesticated         4  
+##  6              40     9.6 Three-toe… Brad… herbi Pilo… &lt;NA&gt;                14.4
+##  7              63.8  15.3 Northern … Call… carni Carn… vu                   8.7
+##  8              70.8  17   Vesper mo… Calo… &lt;NA&gt;  Rode… &lt;NA&gt;                 7  
+##  9              57.9  13.9 Dog        Canis carni Carn… domesticated        10.1
+## 10              87.5  21   Roe deer   Capr… herbi Arti… lc                   3  
+## # ℹ 73 more rows
+## # ℹ 4 more variables: sleep_rem &lt;dbl&gt;, sleep_cycle &lt;dbl&gt;, brainwt &lt;dbl&gt;,
+## #   bodywt &lt;dbl&gt;</code></pre>
+<p><br></p>
+</div>
+<div id="ejercicio-3" class="section level1">
+<h1><strong>Ejercicio 3</strong></h1>
+<p>Use group_by() and summarise() to calculate the number of storms per
+year. Agrupa los datos por año y calcula el número de tormentas que
+ocurrieron cada año. Hint group_by(col) groups the rows by time, and
+summarise(num_storms = n()) counts how many rows (storms) there are per
+year. Sugerencia: group_by(col) agrupa las filas por tiempo, y
+summarise(num_storms = n()) cuenta cuántas filas (tormentas) hay por
+año.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>storms <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_storms =</span> <span class="fu">n</span>())</span></code></pre></div>
+<pre><code>## # A tibble: 48 × 2
+##     year num_storms
+##    &lt;dbl&gt;      &lt;int&gt;
+##  1  1975        238
+##  2  1976        126
+##  3  1977         92
+##  4  1978        152
+##  5  1979        324
+##  6  1980        335
+##  7  1981        311
+##  8  1982        111
+##  9  1983         88
+## 10  1984        342
+## # ℹ 38 more rows</code></pre>
+<p><br></p>
+</div>
+<div id="ejercicio-4" class="section level1">
+<h1><strong>Ejercicio 4</strong></h1>
+<p>Use filter() to subset storms to only storms with wind speeds greater
+than 50 knots, then use arrange() to sort by wind descending. Filtra el
+dataset para quedarte solo con tormentas que tengan velocidad de viento
+mayor a 50 nudos, y luego ordénalas de mayor a menor velocidad de
+viento.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>storms <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="fu">filter</span>(wind <span class="sc">&gt;</span> <span class="dv">50</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(wind))</span></code></pre></div>
+<pre><code>## # A tibble: 6,991 × 13
+##    name     year month   day  hour   lat  long status    category  wind pressure
+##    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt; &lt;int&gt;    &lt;int&gt;
+##  1 Allen    1980     8     7    18  21.8 -86.4 hurricane        5   165      899
+##  2 Gilbert  1988     9    14     0  19.7 -83.8 hurricane        5   160      888
+##  3 Wilma    2005    10    19    12  17.3 -82.8 hurricane        5   160      882
+##  4 Dorian   2019     9     1    16  26.5 -77   hurricane        5   160      910
+##  5 Dorian   2019     9     1    18  26.5 -77.1 hurricane        5   160      910
+##  6 Allen    1980     8     5    12  15.9 -70.5 hurricane        5   155      932
+##  7 Allen    1980     8     7    12  21   -84.8 hurricane        5   155      910
+##  8 Allen    1980     8     8     0  22.2 -87.9 hurricane        5   155      920
+##  9 Allen    1980     8     9     6  25   -94.2 hurricane        5   155      909
+## 10 Gilbert  1988     9    14     6  19.9 -85.3 hurricane        5   155      889
+## # ℹ 6,981 more rows
+## # ℹ 2 more variables: tropicalstorm_force_diameter &lt;int&gt;,
+## #   hurricane_force_diameter &lt;int&gt;</code></pre>
+<p><br></p>
+</div>
+<div id="ejercicio-5" class="section level1">
+<h1><strong>Ejercicio 5</strong></h1>
+<p>Determine which Site and Diameter combination has the highest total
+grahami. Determina cuál combinación de Sitio y Diámetro tiene el total
+de grahami más alto.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>lizards <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Site, Diameter) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">hightotal_grahami =</span> <span class="fu">sum</span>(grahami)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>((hightotal_grahami)))</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 3
+## # Groups:   Site [2]
+##   Site  Diameter hightotal_grahami
+##   &lt;fct&gt; &lt;fct&gt;                &lt;dbl&gt;
+## 1 Shade D &lt;= 2                 220
+## 2 Shade D &gt; 2                  122
+## 3 Sun   D &lt;= 2                  65
+## 4 Sun   D &gt; 2                   24</code></pre>
+<p><br></p>
+</div>
+<div id="ejercicio-6" class="section level1">
+<h1><strong>Ejercicio 6</strong></h1>
+<p>Identify which Time of day has the highest average opalinus count.
+Identifica en qué Momento del día se registra el promedio más alto de
+opalinus.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>lizards <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Time) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">highavg_opalinus =</span> <span class="fu">mean</span>(opalinus)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(highavg_opalinus))</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##   Time    highavg_opalinus
+##   &lt;fct&gt;              &lt;dbl&gt;
+## 1 Mid-day             7.88
+## 2 Early               4.62
+## 3 Late                4.12</code></pre>
 </div>
 </section>
 

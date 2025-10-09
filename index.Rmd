@@ -33,5 +33,5 @@ Welcome everyone. On this page, you will find the prompts for the R Tutorials th
 
 <br> 
 
-## Exam Practice Stuff:
+## Exams:
 ### [Exam 1](assignments/exam1.html)
