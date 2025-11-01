@@ -1,0 +1,95 @@
+---
+title: "Introduction to R for Biologists"
+subtitle: "BIOL 4994/BIOL 4991 undegrads <br> BIOL 6994/BIOL 6997 grads"
+author: "Alan J. Figueroa Ruiz"
+date: "`r format(Sys.time(), '%Y-%b-%d, %I:%M %p')`"
+output:
+  prettydoc::html_pretty:
+  theme: cayman
+  highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Deadline / Fecha de entrega
+**Deadline:** Friday, Nov 31, 2025; 11:59 PM.  
+**Fecha de entrega:** Viernes, 31 de noviembre de 2025; 11:59 PM.
+
+### Instructions / Instrucciones generales
+
+- This assignment consists of **uploading a plot and a brief paragraph (~250 words) summarizing your findings**.
+(Esta tarea consiste en subir un gráfico y un párrafo breve (~250 palabras) resumiendo tus hallazgos.)
+
+- In your paragraph, include the background of the data, what you did, how you did it, and what you found.
+(En tu párrafo, incluye el contexto de los datos, qué hiciste, cómo lo hiciste y qué encontraste.)
+
+- Submit your HTML file exported/knit from the .Rmd. Do not submit screenshots unless requested.
+(Entrega el archivo HTML generado/kniteado desde el .Rmd. No envíes capturas de pantalla a menos que se indique.)
+
+- Your paragraph should briefly summarize your workflow and findings. For example:
+(Tu párrafo debe resumir brevemente tu flujo de trabajo y hallazgos. Por ejemplo:)
+
+- I analyzed the data of tyre performance. I visualized it using ggplot() and then ran a one-way ANOVA. We checked for normality of residuals and found that the residuals were approximately normally distributed. I ran a Tukey post-hoc test. I found that the high-performance tyres were Brand X, and the lower-performance tyres were Brand Y and Z.
+
+- Analicé los datos del desempeño de los neumáticos. Los visualicé usando ggplot() y luego ejecutamos un ANOVA de una vía. Verificamos la normalidad de los residuos y encontramos que los residuos estaban aproximadamente distribuidos normalmente. Ejecuté la prueba post-hoc de Tukey. Encontré que los neumáticos de alto desempeño fueron la marca X y los de menor desempeño fueron las marcas Y y Z.
+
+<br>
+
+Uploading data and head to ensure csv file was read correctly
+```{r}
+tyre <- read.csv("tyre.csv")
+head(tyre, 20)
+```
+
+<br>
+
+Libraries instalation and plot construction
+```{r, message = FALSE}
+library(ggplot2)
+library(car)
+library(dplyr)
+
+
+p <- ggplot(tyre, aes(x=Brands, y=Mileage)) +
+  theme_classic() +
+  geom_boxplot(aes(fill = Brands)) + # Esteticidad
+  labs(title= "Rendimiento de Gomas mas Populares en Puerto Rico", x="Marcas de Gomas",
+       y="Millaje (Km)", fill = "Marcas") + #Labels
+  theme(plot.title = element_text(size=18, face="bold", hjust = 0.5, color = "red")) + #themes       graph title
+  theme(axis.title.y = element_text(size=14, face="bold", color = "blue")) + #themes Y title
+  theme(axis.text.y = element_text(size=14, face="bold", color = "black")) + #themes Y text title
+  theme(axis.title.x = element_text(size=14, face="bold", color = "blue")) + #themes X title
+  theme(axis.text.x = element_text(size=14, face="bold", color = "black")) + #themes Y text title
+  theme(legend.title = element_text(size=18, face="plain", color = "red")) #legend text title
+p
+```
+```{r, echo=FALSE}
+ggsave(filename = "plot.png",
+       plot = p,
+       width=8, height = 6, dpi = 300)
+```
+
+<br>
+
+Developing some ANOVA statistics on the model to know what particular is happening. We establish on class as first assumption for ANOVA that all residues follow a normal distribution.
+```{r}
+mod <-aov(Mileage ~ Brands, data = tyre) #Construccion de modelo
+summary(mod) #Resultados de prueba ANOVA
+resid(mod) #Mostrar residuales
+resid_anova <- resid(mod) #Asignar residuales
+shapiro.test(resid_anova) #Prueba de normalidad de residuales, Probar segunda asumcion de ANOVA 
+suppressWarnings(leveneTest(Mileage ~ Brands, data=tyre)) #Probar  homogenidad de las varianzas, Probar tercera asumpción de ANOVA
+TukeyHSD(mod) #Comparacion Multiple de las Medias
+```
+
+```{r, echo=FALSE}
+ggsave(filename = "plot.png",
+       plot = p,
+       width=8, height = 6, dpi = 300)
+```
+
+Results Summary
+
+Se analizó el conjunto de datos tyre.csv con el objetivo de comparar el desempeño de distintas marcas de neumáticos en términos de kilometraje. Primero, se visualizó los datos utilizando la función ggplot() para observar la distribución del rendimiento entre las marcas. Luego, se construyo un modelo ANOVA de una vía (aov(Mileage ~ Brands, data = tyre)) para evaluar si existían diferencias significativas en el kilometraje promedio según la marca. Los resultados del ANOVA mostraron un efecto significativo de la marca sobre el rendimiento (F = 17.94, p < 0.001), lo que indica que no todas las marcas ofrecen el mismo desempeño. Luego, se verificó los supuestos del modelo. La prueba de Shapiro–Wilk (W = 0.9872, p = 0.7826) confirmó que los residuos seguían una distribución aproximadamente normal, y la prueba de Levene (p = 0.5592) mostró que las varianzas eran homogéneas entre grupos. Cumplidos los supuestos, se aplicó la prueba de Tukey HSD para identificar qué marcas diferían significativamente entre sí. Los resultados revelaron que los neumáticos Falken presentaron un kilometraje significativamente mayor en comparación con Apollo, CEAT y Bridgestone, con valores de p ajustados inferiores a 0.01. En contraste, Bridgestone obtuvo el menor rendimiento promedio.En resumen, el análisis demuestra que la marca influye de manera significativa en el desempeño de los neumáticos por millaje en Puerto Rico, siendo Falken la de mejor rendimiento y Bridgestone la de menor. Este tipo de análisis estadístico permite respaldar decisiones basadas en evidencia en evaluaciones de producto y control de calidad.
