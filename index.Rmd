@@ -26,6 +26,7 @@ Welcome everyone. On this page, you will find the prompts for the R Tutorials th
 ### [HomeWork 2](assignments/assignment2.html)
 ### [HomeWork 3](assignments/assignment3.html)
 ### [HomeWork 4](assignments/assignment4.html)
+### [HomeWork 5](assignments/assignment5.html)
 
 <br> 
 

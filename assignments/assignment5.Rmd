@@ -1,0 +1,198 @@
+---
+title: "Introduction to R for Biologists"
+subtitle: "BIOL 4994/BIOL 4991 undegrads <br> BIOL 6994/BIOL 6997 grads"
+author: "Alan J. Figueroa Ruiz"
+date: "`r format(Sys.time(), '%Y-%b-%d, %I:%M %p')`"
+output:
+  prettydoc::html_pretty:
+  theme: cayman
+  highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Deadline / Fecha de entrega
+**Deadline:** Friday, Nov 21, 2025; 11:59 PM.  
+**Fecha de entrega:** Viernes, 21 de noviembre de 2025; 11:59 PM.
+
+
+### General instructions / Instrucciones generales:
+
+- Make sure that all your R code is visible in your submitted document. I need to see the code for all ggplots you create. / Asegúrense de que todo el código en R sea visible en el documento que entreguen. Necesito poder ver el código de todos los ggplots que hagan.
+
+- We will be using data from the article: [Curtis et al., 2012](https://pubmed.ncbi.nlm.nih.gov/22522925/), Genomic and Transcriptomic Architecture of Breast Tumor. / Estaremos usando datos del artículo: [Curtis et al., 2012](https://pubmed.ncbi.nlm.nih.gov/22522925/), Genomic and Transcriptomic Architecture of Breast Tumor.
+
+- I am giving you the initial code, the basics to start building a ggplot of Tumor Size vs Type of Breast Surgery. / Les estoy dando el inicial, lo básico para construir un ggplot de Tumor Size vs Type of Breast Surgery.
+
+- Be sure to follow R syntax carefully and include all plots requested in the assignment. / Sigan cuidadosamente la sintaxis de R e incluyan todos los gráficos solicitados en la asignación.
+
+- Load libraries
+```{r warning=F, message=F}
+library(readr)
+library(ggplot2)
+library(janitor)
+```
+<br><br>
+
+
+- Load data
+```{r warning=FALSE, message=FALSE}
+metabric <- read.csv("brca_metabric_clinical_data.csv") %>%
+  clean_names()
+head(metabric[, 1:5]) 
+```
+<br><br>
+
+
+### Basic `ggplot`
+```{r}
+ggplot(metabric, aes(x = type_of_breast_surgery,
+                     y = tumor_size)) +
+  geom_boxplot()
+```
+<br><br>
+
+### Question
+
+#### **English** 
+- I have shared with you an initial plot. As you can see, this plot is not yet publication-ready.
+- Your task:
+- Choose at least three modifications you think will improve the plot and make it more flexible and creative.
+    - You can select from the following examples or come up with your own ideas:
+    - Change the background/theme of the plot.
+    - Modify the X and Y axis titles.
+    - Use facet_wrap() or facet_grid() to separate categories.
+    - Change the color of the plot (using fill or color).
+    - Adjust labels, scales, legends, or text sizes.
+    - Other creative enhancements you think improve the visualization.
+
+- Deliverable: Implement your chosen modifications in at **least three different ways**, and briefly explain why you made each choice.
+
+
+#### **Español**
+- Les he compartido un gráfico inicial que, como ven, no está listo para publicación.
+- Su tarea:
+
+- Elijan al menos tres modificaciones que ustedes crean que mejorarán el gráfico y lo harán más flexible y creativo.
+    - Pueden escoger entre los siguientes ejemplos o proponer sus propias ideas:
+    - Cambiar el fondo/tema del gráfico.
+    - Modificar los títulos de los ejes X y Y.
+    - Usar facet_wrap() o facet_grid() para separar categorías.
+    - Cambiar el color del gráfico (usando fill o color).
+    - justar etiquetas, escalas, leyendas o tamaños de texto.
+    - Otras mejoras creativas que consideren útiles.
+
+- Entrega: Implementen sus modificaciones en al menos **tres formas diferentes**, y expliquen brevemente por qué hicieron cada cambio.
+<br><br>
+
+### 1) Versión 1:
+Se limpió el fondo y se añadieron ejes mas claros editados directamente con ggplot. Se utilizó theme_bw() para hacer un fondo blanco limpio contrario a la original que era gris. Se utilizó labs() para poner títulos informativos de ejes y un título general, contrario a la original que fueron los ejes directos del RAW data. Por último, se utilizó theme() para aumentar el tamaño de las letras.
+```{r warning=FALSE, message=FALSE}
+ggplot(metabric, aes(x = type_of_breast_surgery, y = tumor_size)) +
+         geom_boxplot() +
+        # Etiquetas de los ejes y el título del gráfico
+         labs(x = "Type of breast surgery",
+              y = "Tumor Size (mm)",
+              title = "Tumor Size Distribution by Type of Surgery"
+              ) +
+        # Tema de fondo blanco
+         theme_bw() +
+        # Aspectos estéticos del gráfico (título, ejes y texto)
+         theme(
+           plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+           axis.title = element_text(size = 12, face = "bold"),
+           axis.text  = element_text(size = 12, face = "bold")
+         )
+```
+
+### 2) Versión 2:
+Se añadieron colores a las cajas de distribución de datos, se mejoró las etiquetas para que todo estuviera en inglés y se añadió una leyenda con los colores de las cajas. Se utilizó fill = type_of_breast_surgery para diferenciar visualmente cada grupo con una comparación más rápida y se dejaron con colores automáticos que dejó ggplot. Se utilizó scale_x_discrete(labels = c()) para cambiar las etiquetas de categorías a ortografia correcta sin todo mayuscula. Se trató de cambiar los datos de "NA" a "Non Reported". La libreria ggplot2 lo exhibe como "NA" pero no puede etiquetar NA como una palabra, porque lo borra del eje tratandolo como un dato faltante (NULL) y no como dato categórico. Se utilizó theme_minimal() para dejar un diseño sencillo sin el efecto de borde alrededor.
+```{r warning=FALSE, message=FALSE}
+ggplot(metabric, aes(x = type_of_breast_surgery, y = tumor_size, fill = type_of_breast_surgery)) +
+  # Boxplot y show.legend = TRUE para mantener la leyenda visible
+  geom_boxplot(show.legend = TRUE) +
+  # Etiquetas del gráfico y de la leyenda
+  labs(
+    fill = "Type of Breast Surgery",
+    x = "Type of Breast Surgery",
+    y = "Tumor Size (mm)"
+  ) +
+  # Cambiamos las etiquetas de las categorías del eje X
+  scale_x_discrete(
+    labels = c(
+      "BREAST CONSERVING" = "Breast Conserving",
+      "MASTECTOMY"        = "Mastectomy",
+      "NA"                = "Non Reported"
+    )
+  ) +
+  # Tema minimalista para estilo limpio
+  theme_minimal()
+```
+
+### 3) Versión 3:
+Aqui se mantuvo el boxplot clásico tradicional, mejorando la interpretación del gráfico añadiendo la media de cada grupo mediante stat_summary(), representado con un punto de color negro para facilitar la comparación visual entre promedios. Se utilizó coord_cartesian(ylim = c(0, 175)) para ajustar manualmente la escala del eje Y sin modificar los datos ni quitar de vista los valores extremos outlayers y que sigan formando parte del análisis. Aquí, en vez de leyenda, como version 3 se realizó un resumen estadístico dentro del propio gráfico, utilizando annotate(). Este comando genera un cuadro de leyenda tipo texto con la media, mediana y tamaño de muestra (n) calculados directamente desde el conjunto de datos de la tabla brca_metabric_clinical_data.csv. Esto permite al lector conocer alguna información de estadistica descriptiva relevante sin necesidad de generar tablas por separado o ir directamente al archivo RAW a ver los datos y realizar dichos calculos aparte. Finalmente, se usó theme_classic() para obtener un diseño clásico tradicional con ejes delimitados.
+```{r warning=FALSE, message=FALSE}
+ggplot(metabric, aes(x = type_of_breast_surgery, y = tumor_size)) +
+  geom_boxplot() +
+  # Punto negro que marca la media para cada categoría
+  stat_summary() +
+  # Ajuste del rango de escala del eje Y sin alterar los datos
+  coord_cartesian(ylim = c(0, 175)) +
+  # Cambio de etiquetas del boxplot
+  labs(
+    x = "Type of Breast Surgery",
+    y = "Tumor Size (mm)"
+  ) +
+  # Tema clásico con bordes en los ejes
+  theme_classic() +
+  # Inserción de resumen estadístico dentro del gráfico
+  annotate("text",
+           x = 2.5, 
+           y = 160,
+           hjust = 0,
+           size = 4,
+           label = paste(" Summary Statistics\n",
+             "for Tumor Size (mm)\n",
+             # Utilizazion de round para redondear a 2, 
+             # na.rm para que cuente como dato los valores vacios y no de error, 
+             # !is.na para trasnformar aquellos valores vacios en 0 y que ejecute el comando sumando los
+             # valores de la tamaño tumoral, osea, cuenta cuántos valores válidos hay
+             "Mean: ", round(mean(metabric$tumor_size, na.rm = TRUE), 2), "\n",
+             "Median: ", round(median(metabric$tumor_size, na.rm = TRUE), 2), "\n",
+             "n: ", sum(!is.na(metabric$tumor_size))
+           )
+  )
+```
+
+### References Used:
+
+[https://ggplot2.tidyverse.org/reference/geom_boxplot.html]
+
+[https://www.geeksforgeeks.org/r-language/box-plot-in-r-using-ggplot2/]
+
+[https://www.appsilon.com/post/ggplot2-boxplots]
+
+### Bonus: Pregunta opcional / Optional Bonus
+
+#### English:
+- For students who had issues with Question 2 on Tuesday’s quiz, this is an optional bonus.
+- You must make **5 modifications** to the initial plot provided.
+- You can choose any type of modification, e.g., change the theme, axis titles, colors, use facet_wrap, adjust labels, change scales, etc.
+- **Completing this bonus can replace Question 2 of the quiz if done correctly**.
+
+#### Español:
+- Para los estudiantes que tuvieron algún inconveniente con la Pregunta 2 del quiz del martes, pueden optar por este bonus.
+- Deben hacer 5 modificaciones al gráfico inicial que se les proporcionó.
+- Pueden elegir cualquier tipo de modificación, por ejemplo: cambiar el tema, los títulos de los ejes, los colores, usar facet_wrap, ajustar etiquetas, cambiar escalas, etc.
+- **Este bonus puede sustituir la Pregunta 2 del quiz si lo completan correctamente**.
+<br><br>
+
+#### Reference
+- Curtis C, Shah SP, Chin SF, Turashvili G, Rueda OM, Dunning MJ, Speed D, Lynch AG, Samarajiwa S, Yuan Y, Gräf S, Ha G, Haffari G, Bashashati A, Russell R, McKinney S; METABRIC Group; Langerød A, Green A, Provenzano E, Wishart G, Pinder S, Watson P, Markowetz F, Murphy L, Ellis I, Purushotham A, Børresen-Dale AL, Brenton JD, Tavaré S, Caldas C, Aparicio S. The genomic and transcriptomic architecture of 2,000 breast tumours reveals novel subgroups. Nature. 2012 Apr 18;486(7403):346-52. doi: 10.1038/nature10983. PMID: 22522925; PMCID: PMC3440846.
+
+<!--
+- https://bioinformatics-core-shared-training.github.io/Bitesize-R/week4.html
+-->
+<br><br><br><br>
