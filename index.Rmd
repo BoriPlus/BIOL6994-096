@@ -37,3 +37,4 @@ Welcome everyone. On this page, you will find the prompts for the R Tutorials th
 
 ## Exams:
 ### [Exam 1](assignments/exam1.html)
+### [Exam 2](assignments/exam2.html)

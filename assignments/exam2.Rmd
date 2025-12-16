@@ -1,0 +1,147 @@
+---
+title: "Introduction to R for Biologists"
+subtitle: "BIOL 4994/BIOL 4991 undegrads <br> BIOL 6994/BIOL 6997 grads"
+author: "Alan J. Figueroa Ruiz"
+date: "`r format(Sys.time(), '%Y-%b-%d, %I:%M %p')`"
+output:
+  prettydoc::html_pretty:
+  theme: cayman
+  highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Examen 2
+# Exam 2
+
+```{r warning=FALSE, message=FALSE}
+library(ggplot2)
+library(dplyr)
+library(palmerpenguins)
+data(package = 'palmerpenguins')
+head(penguins)
+```
+
+1. Create a scatterplot using geom_point() that shows the relationship between flipper_length_mm and body_mass_g using the penguins dataset.
+Crea un gráfico de dispersión usando geom_point() que muestre la relación entre bill_length_mm y bill_depth_mm usando el dataset penguins.
+
+```{r warning=FALSE, message=FALSE}
+ggplot(data = penguins, 
+       aes(
+         x = flipper_length_mm, 
+         y = body_mass_g)
+       ) + 
+  geom_point()
+```
+
+2. Starting from the previous plot and using similar code, modify the scatterplot to color the points by species.
+Partiendo del gráfico anterior y usando un código similar, modifica el gráfico de dispersión para colorear los puntos por species.
+
+```{r warning=FALSE, message=FALSE}
+ggplot(data = penguins,
+       aes(x = flipper_length_mm,
+           y = body_mass_g,
+           color = species)
+       ) +
+  geom_point()
+```
+
+3. Starting from the previous plot and using similar code, modify the scatterplot to facet the data by species.
+Partiendo del gráfico anterior y usando un código similar, modifica el gráfico de dispersión para crear paneles separados por species.
+
+```{r warning=FALSE, message=FALSE}
+ggplot(data = penguins,
+       aes(x = flipper_length_mm,
+           y = body_mass_g,
+           color = species)
+       ) +
+  geom_point() +
+  facet_wrap(~ species)
+```
+
+4. Starting from the previous plot and using similar code, add a smooth line for each species.
+Partiendo del gráfico anterior y usando un código similar, añade una línea de suavizado para cada especie.
+
+```{r warning=FALSE, message=FALSE}
+ggplot(data = penguins,
+       mapping = aes(x = flipper_length_mm, 
+                     y = body_mass_g,
+                     color = species)
+       ) +
+  geom_point() +
+  facet_wrap(~ species) +
+  geom_smooth(method = "lm")
+```
+
+5. Starting from the plot you created in Question 1, modify it to make it “publication-ready” by improving at least three aspects.
+Partiendo del gráfico que creaste en la Pregunta 1, modifícalo para que sea apto para publicación mejorando al menos tres aspectos.
+
+Aspectos cambiados:
+  1- Etiquetas de los ejes y Título del Gráfico
+  2- Tema de Fondo Blanco
+  3- Aspectos estéticos del gráfico (título, ejes y texto) - BOLD y Tamaño
+```{r warning=FALSE, message=FALSE}
+ggplot(data = penguins,
+       mapping = aes(x = flipper_length_mm, 
+                     y = body_mass_g,
+                     color = species)
+       ) +
+  geom_point() +
+  facet_wrap(~ species) +
+  geom_smooth(method = "lm") +
+  # Etiquetas de los ejes y el título del gráfico
+  labs(x = "Flipper Length (mm)",
+       y = "Body Mass (g)",
+       title = "Palmer Penguins Flipper Length Grow Rate in Relation to Body Mass"
+              ) +
+        # Tema de fondo blanco
+         theme_bw() +
+        # Aspectos estéticos del gráfico (título, ejes y texto)
+         theme(
+           plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+           axis.title = element_text(size = 12, face = "bold"),
+           axis.text  = element_text(size = 8, face = "bold")
+         )
+```
+
+Questions / Preguntas (4 pts each / 4 pts cada una)
+- Important:
+- Provide only the numerical values exactly as they appear in the model output (including decimals or scientific notation). Importante: - Provee únicamente los valores numéricos exactamente como aparecen en el output del modelo (incluyendo decimales o notación exponencial).
+
+
+1. What is the R-squared value of the model?
+¿Cuál es el valor de R-cuadrado del modelo?
+
+## The R-squared value provided in the summary was **0.7583**
+
+2. What is the p-value for the slope coefficient?
+¿Cuál es el p-valor del coeficiente de la pendiente?
+
+## The slope coefficient p value provided in the summary was **< 2.2e-16**
+
+3. Based on the p-value, is there a relationship between flipper length and body mass?
+Basado en el p-valor, ¿hay una relación entre longitud de aletas y masa corporal?
+
+## Based on the p-value, **yes**, there is a strong and statistically significant relationship between flipper length and body mass. Viewing the linar model graph is visible tha fact that longer flippers are strongly associated with greater body mass, so the model explains most of the variation as well.
+
+4. What is the intercept?
+¿Cuál es el intercepto?
+
+## The intercept value provided in the summary was **-5780.831**
+
+5. What is the slope?
+¿Cuál es la pendiente?
+
+## equation: y = b + mx
+## equation: body_mass_g = -5780.831 + (49.686)flipper_length_mm
+## m - slope = 49.686
+
+
+
+
+
+
+
+
